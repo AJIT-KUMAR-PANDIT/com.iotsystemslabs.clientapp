@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export function CardSwitch({
   title,
+  devices,
   active,
   connected,
   button,
@@ -58,6 +59,7 @@ export function CardSwitch({
         )}
         <h1 className={`text-2xl font-bold text-[#7000A6]`}>{title}</h1>
         <p className="text-sm text-[#7000A6]">
+          {devices} Device{devices > 1 ? "s" : ""}
           {connected? " Connected" : " Disconnected"}
         </p>
       </div>

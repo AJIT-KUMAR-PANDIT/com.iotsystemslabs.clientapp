@@ -4,9 +4,9 @@ import { CardSwitch } from "../components/CardSwitch";
 import { useState } from "react";
 
 const devicesData = [
-  { title: "Smart TV", active: true,connected: true, icon: <Tv /> },
-  { title: "Living Room Light", active: false,connected: false, icon: <Lightbulb /> },
-  { title: "Ceiling Fan",  active: true,connected: true, icon: <Fan /> },
+  { title: "Smart TV", devices: 1, active: true,connected: true, icon: <Tv /> },
+  { title: "Living Room Light", devices: 2, active: false,connected: false, icon: <Lightbulb /> },
+  { title: "Ceiling Fan", devices: 1, active: true,connected: true, icon: <Fan /> },
 ];
 
 function Home() {
@@ -29,6 +29,7 @@ function Home() {
           <CardSwitch
             key={index}
             title={device.title}
+            devices={device.devices}
             active={device.active}
             connected={device.connected}
             button={true}
