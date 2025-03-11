@@ -5,7 +5,7 @@ import "./App.css";
 
 // Lazy Imports
 const HomeComponent = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/Home"));
+const Rooms = lazy(() => import("./pages/Rooms"));
 const NotFound = lazy(() => import("./pages/Home"));
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<HomeComponent isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
-            <Route path="/about" element={<About isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
+            <Route path="/rooms" element={<Rooms isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
             <Route path="*" element={<NotFound isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
           </Routes>
         </Suspense>
