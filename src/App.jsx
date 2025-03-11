@@ -1,7 +1,15 @@
 import { lazy, Suspense, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
-import { Home as HomeIcon, Activity, DoorOpen, User, Mic, Moon } from "lucide-react";
+import {
+  Home as HomeIcon,
+  Activity,
+  DoorOpen,
+  User,
+  Mic,
+  Moon,
+} from "lucide-react";
 import "./App.css";
+import VoiceAssistant from "./pages/VoiceAssistant";
 
 // Lazy Imports
 const HomeComponent = lazy(() => import("./pages/Home"));
@@ -12,14 +20,16 @@ const NotFound = lazy(() => import("./pages/Home"));
 
 function App() {
   const [isBlackBg, setIsBlackBg] = useState(false);
-  
+
   const toggleBackground = () => {
     setIsBlackBg((prev) => !prev); // Toggle background
   };
 
   return (
     <div
-      className={`h-screen flex flex-col ${isBlackBg ? "bg-black text-white" : "bg-white text-gray-900"}`}
+      className={`h-screen flex flex-col ${
+        isBlackBg ? "bg-black text-white" : "bg-white text-gray-900"
+      }`}
     >
       {/* Top navigation */}
       <div
@@ -28,8 +38,9 @@ function App() {
         } rounded-t-2xl flex justify-between items-center p-1 shadow-lg`}
       >
         <span className="font-extrabold flex justify-between items-center">
-          <img src="/nakprc.png" alt="nakprc logo" className="h-[51px]"/>
-          IOT Systems Labs Home</span>
+          <img src="/nakprc.png" alt="nakprc logo" className="h-[51px]" />
+          IOT Systems Labs Home
+        </span>
         {/* <button
           onClick={toggleBackground}
           className={`p-2 rounded-full ${
@@ -50,34 +61,96 @@ function App() {
           }
         >
           <Routes>
-            <Route path="/" element={<HomeComponent isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
-            <Route path="/rooms" element={<Rooms isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
-            <Route path="/usage" element={<Usage isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
-            <Route path="/profile" element={<Profile isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
-            <Route path="*" element={<NotFound isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
+            <Route
+              path="/"
+              element={
+                <HomeComponent
+                  isBlackBg={isBlackBg}
+                  toggleBackground={toggleBackground}
+                />
+              }
+            />
+            <Route
+              path="/rooms"
+              element={
+                <Rooms
+                  isBlackBg={isBlackBg}
+                  toggleBackground={toggleBackground}
+                />
+              }
+            />
+            <Route
+              path="/usage"
+              element={
+                <Usage
+                  isBlackBg={isBlackBg}
+                  toggleBackground={toggleBackground}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  isBlackBg={isBlackBg}
+                  toggleBackground={toggleBackground}
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <NotFound
+                  isBlackBg={isBlackBg}
+                  toggleBackground={toggleBackground}
+                />
+              }
+            />
           </Routes>
         </Suspense>
       </Main>
 
       {/* Bottom navigation */}
-      
+
       <div
         className={`fixed w-full bottom-4 z-[8888] ${
           isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
         } rounded-t-2xl flex justify-around p-4 shadow-lg`}
       >
-        <NavButton to="/" icon={<HomeIcon size={20} />} label="Home" isBlackBg={isBlackBg} />
-        <NavButton to="/rooms" icon={<DoorOpen size={20} />} label="Rooms" isBlackBg={isBlackBg} />
-        <NavButton to="/voice" icon={<Mic size={20} />} label="Voice" isBlackBg={isBlackBg} />
-        <NavButton to="/usage" icon={<Activity size={20} />} label="Usage" isBlackBg={isBlackBg} />
-        <NavButton to="/profile" icon={<User size={20} />} label="Profile" isBlackBg={isBlackBg} />
+        <NavButton
+          to="/"
+          icon={<HomeIcon size={20} />}
+          label="Home"
+          isBlackBg={isBlackBg}
+        />
+        <NavButton
+          to="/rooms"
+          icon={<DoorOpen size={20} />}
+          label="Rooms"
+          isBlackBg={isBlackBg}
+        />
+        <VoiceAssistant isBlackBg={isBlackBg} label="AI Voice" />
+        <div className="w-[70px]"></div>
+        <NavButton
+          to="/usage"
+          icon={<Activity size={20} />}
+          label="Usage"
+          isBlackBg={isBlackBg}
+        />
+        <NavButton
+          to="/profile"
+          icon={<User size={20} />}
+          label="Profile"
+          isBlackBg={isBlackBg}
+        />
       </div>
       <span
-       className={`fixed w-full bottom-0 z-[8888] h-0 text-xs ${
-        isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-      } rounded-t-2xl flex justify-around p-4 shadow-lg`}
-    
-      >IOT Systems Labs &copy; by iot.nakprc.com</span>
+        className={`fixed w-full bottom-0 z-[8888] h-0 text-xs ${
+          isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+        } rounded-t-2xl flex justify-around p-4 shadow-lg`}
+      >
+        IOT Systems Labs &copy; by iot.nakprc.com
+      </span>
     </div>
   );
 }
@@ -106,8 +179,8 @@ function NavButton({ to, icon, label, isBlackBg }) {
               ? "text-blue-400"
               : "text-indigo-600"
             : isBlackBg
-              ? "text-gray-400"
-              : "text-gray-400"
+            ? "text-gray-400"
+            : "text-gray-400"
         }`
       }
     >
