@@ -6,8 +6,8 @@ import "./App.css";
 // Lazy Imports
 const HomeComponent = lazy(() => import("./pages/Home"));
 const Rooms = lazy(() => import("./pages/Rooms"));
-
 const Usage = lazy(() => import("./pages/Usage"));
+const Profile = lazy(() => import("./pages/Profile"));
 const NotFound = lazy(() => import("./pages/Home"));
 
 function App() {
@@ -53,6 +53,7 @@ function App() {
             <Route path="/" element={<HomeComponent isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
             <Route path="/rooms" element={<Rooms isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
             <Route path="/usage" element={<Usage isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
+            <Route path="/profile" element={<Profile isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
             <Route path="*" element={<NotFound isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
           </Routes>
         </Suspense>
