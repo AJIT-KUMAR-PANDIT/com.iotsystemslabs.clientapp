@@ -4,7 +4,7 @@ import React from 'react';
 const Card = ({ children, className, ...props }) => {
   return (
     <div
-      className={`bg-white shadow-md rounded-md overflow-hidden ${className}`}
+      className={` shadow-md rounded-md overflow-hidden ${className}`}
       {...props}
     >
       {children}
