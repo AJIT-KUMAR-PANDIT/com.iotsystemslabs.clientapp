@@ -1,7 +1,13 @@
 // Home Component
-import { Plus } from "lucide-react";
+import { Plus, Tv, Lightbulb, Fan } from "lucide-react";
 import { CardSwitch } from "../components/CardSwitch";
 import { useState } from "react";
+
+const devicesData = [
+  { title: "Smart TV", active: true,connected: true, icon: <Tv /> },
+  { title: "Living Room Light", active: false,connected: false, icon: <Lightbulb /> },
+  { title: "Ceiling Fan",  active: true,connected: true, icon: <Fan /> },
+];
 
 function Home() {
   const [colorEnable, setColorEnable] = useState(true);
@@ -18,15 +24,18 @@ function Home() {
           <Plus />
         </div>
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-4">
-        <CardSwitch
-          title="Smart TV"
-          devices="1"
-          active={true}
-          button={true}
-          icon={<Plus />}
-          handleToggle={handleToggleCardSwitch}
-        />
+      <div className="mt-4 grid grid-cols-2 gap-4 ">
+        {devicesData.map((device, index) => (
+          <CardSwitch
+            key={index}
+            title={device.title}
+            active={device.active}
+            connected={device.connected}
+            button={true}
+            icon={device.icon}
+            handleToggle={handleToggleCardSwitch}
+          />
+        ))}
       </div>
     </>
   );

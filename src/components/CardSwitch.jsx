@@ -3,8 +3,8 @@ import { useState } from "react";
 
 export function CardSwitch({
   title,
-  devices,
   active,
+  connected,
   button,
   icon,
   handleToggle
@@ -12,6 +12,7 @@ export function CardSwitch({
   const [enabled, setEnabled] = useState(active);
 
   const handleToggleSwitch = () => {
+    if(connected === false) return
     setEnabled(!enabled);
     handleToggle(!enabled);
   };
@@ -20,8 +21,10 @@ export function CardSwitch({
     <div
       onClick={handleToggleSwitch} // Card click toggles as well
       className={`flex flex-row-reverse items-center justify-around ${
-        enabled ? "bg-[#22bb7b] border-green-500" : "bg-azure border-green-500"
-      } rounded-2xl p-4 border-2 cursor-pointer`}
+        enabled ? "bg-[#22bb7b] " : "bg-azure"
+      } rounded-2xl p-4 border-2 cursor-pointer
+      ${connected ? "border-green-500" : "border-red-800 border-8"}
+      `}
     >
       <div className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors">
         {button && (
@@ -55,7 +58,7 @@ export function CardSwitch({
         )}
         <h1 className={`text-2xl font-bold text-[#7000A6]`}>{title}</h1>
         <p className="text-sm text-[#7000A6]">
-          {devices} Device{devices > 1 ? "s" : ""}
+          {connected? " Connected" : " Disconnected"}
         </p>
       </div>
     </div>
