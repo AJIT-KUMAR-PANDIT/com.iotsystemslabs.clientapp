@@ -1,6 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
-import { Home as HomeIcon, Activity, DoorOpen, User, Mic } from "lucide-react";
+import { Home as HomeIcon, Activity, DoorOpen, User, Mic, Moon } from "lucide-react"; 
 import "./App.css";
 
 // Lazy Imports
@@ -9,11 +9,31 @@ const About = lazy(() => import("./pages/Home"));
 const NotFound = lazy(() => import("./pages/Home"));
 
 function App() {
+  const [isBlackBg, setIsBlackBg] = useState(false);
+
+  const toggleBackground = () => {
+    setIsBlackBg((prev) => !prev); // Toggle background
+  };
+
   return (
-    <div className="h-screen flex flex-col">
+    <div
+      className={`h-screen flex flex-col ${isBlackBg ? "bg-black text-white" : "bg-white text-gray-900"}`}
+    >
       {/* Top navigation */}
-      <div className="bg-white text-gray-900 rounded-t-2xl flex justify-around p-4 shadow-lg">
-        IOT Systems Labs &copy; by nakprc.com
+      <div
+        className={`fixed w-full top-0 z-[8888] ${
+          isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+        } rounded-t-2xl flex justify-between items-center p-4 shadow-lg`}
+      >
+        <span>IOT Systems Labs &copy; by iot.nakprc.com</span>
+        <button
+          onClick={toggleBackground}
+          className={`p-2 rounded-full ${
+            isBlackBg ? "bg-white text-black" : "bg-[#7000A6] text-white"
+          }`}
+        >
+          <Moon size={20} />
+        </button>
       </div>
 
       {/* Main Content Area (Scrollable) */}
@@ -34,12 +54,16 @@ function App() {
       </Main>
 
       {/* Bottom navigation */}
-      <div className="bg-white text-gray-900 rounded-t-2xl flex justify-around p-4 shadow-lg">
-        <NavButton to="/" icon={<HomeIcon size={20} />} label="Home" />
-        <NavButton to="/rooms" icon={<DoorOpen size={20} />} label="Rooms" />
-        <NavButton to="/voice" icon={<Mic size={20} />} label="Voice" />
-        <NavButton to="/usage" icon={<Activity size={20} />} label="Usage" />
-        <NavButton to="/profile" icon={<User size={20} />} label="Profile" />
+      <div
+        className={`fixed w-full bottom-0 z-[8888] ${
+          isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+        } rounded-t-2xl flex justify-around p-4 shadow-lg`}
+      >
+        <NavButton to="/" icon={<HomeIcon size={20} />} label="Home" isBlackBg={isBlackBg} />
+        <NavButton to="/rooms" icon={<DoorOpen size={20} />} label="Rooms" isBlackBg={isBlackBg} />
+        <NavButton to="/voice" icon={<Mic size={20} />} label="Voice" isBlackBg={isBlackBg} />
+        <NavButton to="/usage" icon={<Activity size={20} />} label="Usage" isBlackBg={isBlackBg} />
+        <NavButton to="/profile" icon={<User size={20} />} label="Profile" isBlackBg={isBlackBg} />
       </div>
     </div>
   );
@@ -52,18 +76,25 @@ function Main({ children }) {
   return (
     <div className="flex-grow overflow-y-auto p-4">
       {children}
+      <div className="pb-36"></div>
     </div>
   );
 }
 
 // NavButton Component
-function NavButton({ to, icon, label }) {
+function NavButton({ to, icon, label, isBlackBg }) {
   return (
     <NavLink
       to={to}
       className={({ isActive }) =>
         `flex flex-col items-center ${
-          isActive ? "text-indigo-600" : "text-gray-400"
+          isActive
+            ? isBlackBg
+              ? "text-blue-400"
+              : "text-indigo-600"
+            : isBlackBg
+            ? "text-gray-400"
+            : "text-gray-400"
         }`
       }
     >
