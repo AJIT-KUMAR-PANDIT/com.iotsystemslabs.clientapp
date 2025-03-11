@@ -1,16 +1,16 @@
 import { lazy, Suspense, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
-import { Home as HomeIcon, Activity, DoorOpen, User, Mic, Moon } from "lucide-react"; 
+import { Home as HomeIcon, Activity, DoorOpen, User, Mic, Moon } from "lucide-react";
 import "./App.css";
 
 // Lazy Imports
-const Home = lazy(() => import("./pages/Home"));
+const HomeComponent = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/Home"));
 const NotFound = lazy(() => import("./pages/Home"));
 
 function App() {
   const [isBlackBg, setIsBlackBg] = useState(false);
-
+  
   const toggleBackground = () => {
     setIsBlackBg((prev) => !prev); // Toggle background
   };
@@ -23,17 +23,19 @@ function App() {
       <div
         className={`fixed w-full top-0 z-[8888] ${
           isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-        } rounded-t-2xl flex justify-between items-center p-4 shadow-lg`}
+        } rounded-t-2xl flex justify-between items-center p-1 shadow-lg`}
       >
-        <span>IOT Systems Labs &copy; by iot.nakprc.com</span>
-        <button
+        <span className="font-extrabold flex justify-between items-center">
+          <img src="/nakprc.png" alt="nakprc logo" className="h-[51px]"/>
+          IOT Systems Labs Home</span>
+        {/* <button
           onClick={toggleBackground}
           className={`p-2 rounded-full ${
             isBlackBg ? "bg-white text-black" : "bg-[#7000A6] text-white"
           }`}
         >
           <Moon size={20} />
-        </button>
+        </button> */}
       </div>
 
       {/* Main Content Area (Scrollable) */}
@@ -46,16 +48,17 @@ function App() {
           }
         >
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<HomeComponent isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
+            <Route path="/about" element={<About isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
+            <Route path="*" element={<NotFound isBlackBg={isBlackBg} toggleBackground={toggleBackground} />} />
           </Routes>
         </Suspense>
       </Main>
 
       {/* Bottom navigation */}
+      
       <div
-        className={`fixed w-full bottom-0 z-[8888] ${
+        className={`fixed w-full bottom-4 z-[8888] ${
           isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
         } rounded-t-2xl flex justify-around p-4 shadow-lg`}
       >
@@ -65,6 +68,12 @@ function App() {
         <NavButton to="/usage" icon={<Activity size={20} />} label="Usage" isBlackBg={isBlackBg} />
         <NavButton to="/profile" icon={<User size={20} />} label="Profile" isBlackBg={isBlackBg} />
       </div>
+      <span
+       className={`fixed w-full bottom-0 z-[8888] h-0 text-xs ${
+        isBlackBg ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+      } rounded-t-2xl flex justify-around p-4 shadow-lg`}
+    
+      >IOT Systems Labs &copy; by iot.nakprc.com</span>
     </div>
   );
 }
@@ -74,7 +83,7 @@ export default App;
 // Main Component for Scrollable Content
 function Main({ children }) {
   return (
-    <div className="flex-grow overflow-y-auto p-4">
+    <div className="pt-21 flex-grow overflow-y-auto">
       {children}
       <div className="pb-36"></div>
     </div>
@@ -93,8 +102,8 @@ function NavButton({ to, icon, label, isBlackBg }) {
               ? "text-blue-400"
               : "text-indigo-600"
             : isBlackBg
-            ? "text-gray-400"
-            : "text-gray-400"
+              ? "text-gray-400"
+              : "text-gray-400"
         }`
       }
     >
