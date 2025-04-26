@@ -1,0 +1,275 @@
+.ai-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.ai-overlay-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.ai-overlay-content {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.ai-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 195, 255, 0.5);
+  color: #00c3ff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1002;
+}
+
+.ai-close-button:hover {
+  background: rgba(0, 195, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.ai-circle-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.ai-outer-circle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 195, 255, 0.3);
+  animation: rotate 10s linear infinite;
+}
+
+.ai-middle-circle {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px dashed rgba(0, 195, 255, 0.5);
+  animation: rotate 15s linear infinite reverse;
+}
+
+.ai-inner-circle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 195, 255, 0.7);
+  animation: rotate 7s linear infinite;
+}
+
+.ai-core {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 195, 255, 0.8) 0%, rgba(0, 89, 255, 0.4) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 195, 255, 0.5);
+}
+
+.ai-core-pulse {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 195, 255, 0.3);
+  transform: scale(0.8);
+}
+
+.ai-core-pulse.pulse-active {
+  animation: pulse 1.5s ease-out infinite;
+}
+
+.ai-status-text {
+  position: absolute;
+  bottom: -40px;
+  color: #00c3ff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.ai-visualizer-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 60px;
+  width: 200px;
+  margin-bottom: 30px;
+  gap: 2px;
+}
+
+.ai-visualizer-bar {
+  width: 4px;
+  background: linear-gradient(to top, #0059ff, #00c3ff);
+  border-radius: 2px;
+  transition: height 0.1s ease;
+}
+
+.ai-action-button {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #0059ff, #00c3ff);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-action-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.ai-action-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 195, 255, 0.7);
+}
+
+.ai-action-button:hover::before {
+  animation: shine 1.5s infinite;
+}
+
+.ai-action-button.listening {
+  background: linear-gradient(135deg, #ff3a3a, #ff7b00);
+  box-shadow: 0 0 15px rgba(255, 58, 58, 0.5);
+}
+
+.ai-tech-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ai-tech-circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 195, 255, 0.5);
+  animation: pulse 2s infinite;
+}
+
+.ai-tech-circle.top-left {
+  top: 50px;
+  left: 50px;
+  animation-delay: 0.5s;
+}
+
+.ai-tech-circle.top-right {
+  top: 50px;
+  right: 50px;
+  animation-delay: 1s;
+}
+
+.ai-tech-circle.bottom-left {
+  bottom: 50px;
+  left: 50px;
+  animation-delay: 1.5s;
+}
+
+.ai-tech-circle.bottom-right {
+  bottom: 50px;
+  right: 50px;
+  animation-delay: 2s;
+}
+
+.ai-tech-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(0, 195, 255, 0.5), transparent);
+}
+
+.ai-tech-line.horizontal {
+  width: 100%;
+  height: 1px;
+  top: 50%;
+  animation: scanLine 3s infinite;
+}
+
+.ai-tech-line.vertical {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  background: linear-gradient(180deg, transparent, rgba(0, 195, 255, 0.5), transparent);
+  animation: scanLine 3s infinite 1.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(0.8); opacity: 1; }
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 150%; }
+}
+
+@keyframes scanLine {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}

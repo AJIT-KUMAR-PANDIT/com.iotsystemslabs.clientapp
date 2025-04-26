@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Mic, Loader, X } from "lucide-react";
+import AIOverlay from "../components/AIOverlay";
 
-function VoiceAssistant({ isBlackBg, label }) {
+const VoiceAssistant = ({ isBlackBg, label }) => {
   const [isListening, setIsListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [overlayOpen, setOverlayOpen] = useState(false);
 
   const handleStartListening = () => {
     setIsLoading(true);
@@ -19,33 +21,62 @@ function VoiceAssistant({ isBlackBg, label }) {
     setIsListening(false);
   };
 
+  const startListening = async () => {
+    handleStartListening();
+  };
+
+  const stopListening = async () => {
+    handleStopListening();
+  };
+
+  const handleListen = async () => {
+    if (isListening) {
+      await stopListening();
+    } else {
+      await startListening();
+    }
+  };
+
+  const openOverlay = () => {
+    setOverlayOpen(true);
+  };
+
+  const closeOverlay = () => {
+    setOverlayOpen(false);
+    if (isListening) {
+      stopListening();
+    }
+  };
+
   return (
-    <div className="voice-assistant-container flex flex-col items-center">
-      {!isListening ? (
-        <div
-          className={`voice-assistant-btn ${
-            isBlackBg ? "bg-white text-black" : "bg-black text-white"
-          }`}
-          onClick={handleStartListening}
-        >
-          {isLoading ? (
-            <Loader className="animate-spin text-blue-500" size={36} />
-          ) : (
-            <Mic size={36} />
-          )}
-          <span className="tooltip">AI Assistant</span>
-        </div>
-      ) : (
-        <div
-          className={`voice-assistant-active ${
-            isBlackBg ? "bg-red-400 text-white" : "bg-red-600 text-white"
-          }`}
-          onClick={handleStopListening}
-        >
-          <X size={36} />
-          <span className="tooltip">Stop Listening</span>
-        </div>
-      )}
+    <div className={`voice-assistant-container ${isBlackBg ? "black-bg" : ""}`}>
+      <div className="voice-assistant-controls">
+        {!isListening ? (
+          <div
+            className={`voice-assistant-btn ${
+              isBlackBg ? "bg-white text-black" : "bg-black text-white"
+            }`}
+            onClick={openOverlay}
+          >
+            {isLoading ? (
+              <Loader className="animate-spin text-blue-500" size={36} />
+            ) : (
+              <Mic size={36} />
+            )}
+            <span className="tooltip">AI Assistant</span>
+          </div>
+        ) : (
+          <div
+            className={`voice-assistant-active ${
+              isBlackBg ? "bg-red-400 text-white" : "bg-red-600 text-white"
+            }`}
+            onClick={handleStopListening}
+          >
+            <X size={36} />
+            <span className="tooltip">Stop Listening</span>
+          </div>
+        )}
+      </div>
 
       {/* Dynamic Label */}
       <span
@@ -55,8 +86,16 @@ function VoiceAssistant({ isBlackBg, label }) {
       >
         {label || "AI Voice"}
       </span>
+
+      {/* Add the AI Overlay */}
+      <AIOverlay
+        isOpen={overlayOpen}
+        onClose={closeOverlay}
+        onListen={handleListen}
+        isListening={isListening}
+      />
     </div>
   );
-}
+};
 
 export default VoiceAssistant;
